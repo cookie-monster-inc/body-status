@@ -1,0 +1,23 @@
+language: ruby
+rvm:
+  - 1.9.3
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rake
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database bodystatus_ci_test;' -U postgres
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+deploy:
+  provider: heroku
+  strategy: git
+  api_key:
+    secure: LqYZP3Ap/XAi8qt8uRlKQ8u7fTAvhAosMU2ihUWtaN0TXFmpBcAnJIMTe7obhhnN9YIiEY7t9syOZW4Y9dTV/9hd+4iPci+5GZxc3YJB8gzpW+EQLFGkpWYwjM2IPoJa4Iltf5Ou//vdUESEMfN7JcS45I2iIKuyitVB56caJ90=
+  app: body-status
+  on:
+    repo: cookie-monster-inc/body-status
+  run:
+    - "rake db:migrate"
+    - restart

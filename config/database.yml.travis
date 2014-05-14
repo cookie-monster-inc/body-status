@@ -1,4 +1,4 @@
 test:
   adapter: postgresql
   encoding: unicode
-  database: helpme_test
+  database: bodystatus_ci_test

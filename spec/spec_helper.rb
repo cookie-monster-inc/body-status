@@ -6,6 +6,7 @@ require 'rspec/autorun'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
+I18n.enforce_available_locales = false
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   

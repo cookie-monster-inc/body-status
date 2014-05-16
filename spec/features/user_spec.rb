@@ -4,7 +4,8 @@ describe "Users", :js => true do
   describe "User creation" do
     context "With valid data" do 
       it "should create a user" do
-        visit new_user_path
+        visit root_path
+        click_on "Register"
         expect{
           fill_in "First name", with: attributes_for(:user)[:first_name]
           fill_in "Last name", with: attributes_for(:user)[:last_name]
@@ -18,7 +19,8 @@ describe "Users", :js => true do
     context "With invalid data" do
       it "should not create a user and print errors" do
         # This is the only way to pass the html5 validation
-        visit new_user_path
+        visit root_path
+        click_on "Register"
         expect{
           fill_in "First name", with: attributes_for(:user)[:first_name]
           fill_in "Last name", with: attributes_for(:user)[:last_name]

@@ -29,4 +29,11 @@ describe UsersController do
         }.not_to change { User.count }
     end
   end
+
+  context '#index' do
+    it 'should exist' do
+      get :index
+      expect(response).to be_success
+    end
+  end
 end

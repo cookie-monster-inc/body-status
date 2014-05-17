@@ -42,7 +42,7 @@ describe UsersController do
 
   context '#edit' do
     it 'should exist' do 
-      get :edit, user
+      get :edit, :id => user.id
       expect(response).to be_success
     end
   end

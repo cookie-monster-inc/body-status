@@ -46,4 +46,44 @@ describe UsersController do
       expect(response).to be_success
     end
   end
+
+  context '#update' do
+    let(:valid_edit_params) do
+      {
+        user: {
+          first_name: 'This',
+          last_name: 'guy',
+          email: 'test@test.com',
+          password: "password",
+          password_confirmation: "password"
+        },
+        id: user.id
+      }
+    end
+
+    let(:invalid_edit_params) do
+      {
+        user: {},
+        id: user.id
+      }
+    end
+
+
+    context 'with valid data' do
+      it 'should update a user' do
+        expect{
+          put :update, valid_edit_params
+          expect(response).to be_redirect
+          }.to change { 
+            # We build a hash of all the items that are supposed to change
+            this_user = User.find(user.id)
+            {
+             first_name: this_user.first_name,
+             last_name: this_user.last_name,
+             email: this_user.email
+            }
+          }
+      end
+    end
+  end
 end

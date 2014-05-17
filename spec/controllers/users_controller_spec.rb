@@ -7,6 +7,9 @@ describe UsersController do
   let(:invalid_params) do
     { :user => {} }
   end
+  let!(:user) do 
+    create :user
+  end
 
   context '#new' do 
     it 'should exist' do 
@@ -33,6 +36,13 @@ describe UsersController do
   context '#index' do
     it 'should exist' do
       get :index
+      expect(response).to be_success
+    end
+  end
+
+  context '#edit' do
+    it 'should exist' do 
+      get :edit, user
       expect(response).to be_success
     end
   end

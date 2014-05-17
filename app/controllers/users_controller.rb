@@ -18,4 +18,12 @@ class UsersController < ApplicationController
 
   def edit
   end
+
+  def update
+    @user = User.find(params[:id]).try(:authenticate, params[:user][:password])
+    if @user
+      @user.update_attributes(params[:user])
+    end
+    redirect_to root_path
+  end
 end

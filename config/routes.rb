@@ -1,4 +1,4 @@
 BodyStatus::Application.routes.draw do
   root :to => 'users#index'
-  resources :users, :except => [:update, :delete]
+  resources :users, :except => [:delete]
 end

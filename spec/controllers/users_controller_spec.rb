@@ -85,5 +85,21 @@ describe UsersController do
           }
       end
     end
+    context 'with no password' do 
+      it 'should not update a user, and print errors' do
+        expect{
+          put :update, invalid_edit_params
+          expect(response).to_not be_redirect
+          }.to_not change { 
+            # We build a hash of all the items that are supposed to change
+            this_user = User.find(user.id)
+            {
+             first_name: this_user.first_name,
+             last_name: this_user.last_name,
+             email: this_user.email
+            }
+          }
+        end
+    end
   end
 end

@@ -102,4 +102,15 @@ describe UsersController do
         end
     end
   end
+
+  context '#destroy' do 
+    context 'with valid data' do
+      it 'should delete an user' do 
+        expect {
+          delete :destroy, :id => user.id
+          expect(response).to be_redirect
+        }.to change { User.count }.by -1
+      end
+    end
+  end
 end

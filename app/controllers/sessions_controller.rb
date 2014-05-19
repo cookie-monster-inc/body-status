@@ -8,6 +8,8 @@ class SessionsController < ApplicationController
     if user
       session[:user_id] = user.id
       redirect_to root_path
+    else
+      render '/sessions/new'
     end
   end
 

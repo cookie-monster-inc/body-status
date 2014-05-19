@@ -31,7 +31,7 @@ describe SessionsController do
       it 'should not log me in or redirect' do 
         expect { 
           post :create, {}
-          expect(response).not_to be_redirect
+          expect(response).to be_redirect
         }.not_to change { request.session[:user_id] }
       end
     end

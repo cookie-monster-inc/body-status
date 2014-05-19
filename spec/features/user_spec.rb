@@ -1,15 +1,14 @@
 require 'spec_helper'
 
 describe "Users", :js => true do 
+  let(:user_attr) {
+    attributes_for :user
+  }
+  let!(:user) {
+    create :user
+  }
   describe "User creation" do
     context "With valid data" do 
-      let(:user_attr) {
-        attributes_for :user
-      }
-      let!(:user) {
-        create :user
-      }
-
       it "should create a user" do
         visit root_path
         click_on "Register"
@@ -21,17 +20,6 @@ describe "Users", :js => true do
           fill_in "Password confirmation", with: user_attr[:password_confirmation]
           click_on "Create User"
           }.to change{ User.count }.by 1
-      end
-
-      it "should log you in" do
-        visit root_path
-        click_on "Log in"
-        
-        fill_in "Email", with: user.email
-        fill_in "Password", with: user_attr[:password]
-        click_on "Log in"
-
-        expect(page).not_to have_content "This Email/Password did not match"
       end
     end
     context "With invalid data" do
@@ -49,7 +37,23 @@ describe "Users", :js => true do
           }.not_to change{ User.count }
         expect(page).to have_content "Password doesn't match confirmation"
       end
+    end
+  end
 
+  context "User login" do 
+    context "with valid data" do
+      it "should log you in" do
+        visit root_path
+        click_on "Log in"
+        
+        fill_in "Email", with: user.email
+        fill_in "Password", with: user_attr[:password]
+        click_on "Log in"
+
+        expect(page).not_to have_content "This Email/Password did not match"
+      end
+    end
+    context "with invalid data" do 
       it "should log you in" do
         visit root_path
         click_on "Log in"

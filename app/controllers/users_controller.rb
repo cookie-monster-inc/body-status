@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new params[:user]
     if @user.save
-      redirect_to new_user_path
+      redirect_to root_path
     else
       @alerts = @user.errors.full_messages
       render "users/new"

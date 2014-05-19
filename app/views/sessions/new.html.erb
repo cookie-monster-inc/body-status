@@ -1,7 +1,13 @@
+<% if @alerts %>
+  <% @alerts.each do |error| %>
+    <%= error %><br>
+  <% end %>
+<% end %>
+
 <%= form_tag('/sessions') do |f| %>
   <%= label_tag :email %>
-  <%= text_field_tag 'Email', :email %>
+  <%= text_field_tag 'email', :email %>
   <%= label_tag :password %>
-  <%= password_field_tag 'Password', :password %>
+  <%= password_field_tag 'password', :password %>
   <%= submit_tag 'Log in' %>
 <% end %>

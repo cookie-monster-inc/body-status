@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to root_path
     else
+      @alerts = ["This Email/Password did not match"]
       render '/sessions/new'
     end
   end

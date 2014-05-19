@@ -36,4 +36,14 @@ describe SessionsController do
       end
     end
   end
+
+  context '#destroy' do 
+    it 'should log me out' do 
+      request.session[:user_id] = user.id
+      expect {
+        delete :destroy, :id => user.id
+        expect(response).to be_redirect
+      }.to change { request.session[:user_id] }.to nil
+    end
+  end
 end

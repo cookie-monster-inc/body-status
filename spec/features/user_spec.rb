@@ -28,7 +28,7 @@ describe "Users", :js => true do
         click_on "Log in"
         
         fill_in "Email", with: user.email
-        fill_in "Password", with: user.password
+        fill_in "Password", with: user_attr[:password]
         click_on "Log in"
 
         expect(page).not_to have_content "This Email/Password did not match"
@@ -48,6 +48,17 @@ describe "Users", :js => true do
           click_on "Create User"
           }.not_to change{ User.count }
         expect(page).to have_content "Password doesn't match confirmation"
+      end
+
+      it "should log you in" do
+        visit root_path
+        click_on "Log in"
+        
+        fill_in "Email", with: "hgfhgf@hgfjh.com"
+        fill_in "Password", with: "jhj"
+        click_on "Log in"
+
+        expect(page).to have_content "This Email/Password did not match"
       end
     end
   end

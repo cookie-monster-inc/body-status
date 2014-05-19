@@ -15,4 +15,22 @@ class UsersController < ApplicationController
       render "users/new"
     end
   end
+
+  def edit
+  end
+
+  def update
+    @user = User.find(params[:id]).try(:authenticate, params[:user][:password])
+    if @user
+      if @user.update_attributes(params[:user])
+        redirect_to root_path
+      else
+        @alerts = @user.errors.full_messages
+        render "user/edit"
+      end
+    else
+      @alerts = "The password you entered is not valid"
+      render "users/edit"
+    end
+  end
 end

@@ -28,7 +28,7 @@ describe UsersController do
     it "should NOT create an User and redirect when params are INvalid" do
       expect{
         post :create, invalid_params
-        expect(response).not_to be_redirect
+        expect(response).to be_redirect
         }.not_to change { User.count }
     end
   end
@@ -89,7 +89,7 @@ describe UsersController do
       it 'should not update a user, and print errors' do
         expect{
           put :update, invalid_edit_params
-          expect(response).to_not be_redirect
+          expect(response).to be_redirect
           }.to_not change { 
             # We build a hash of all the items that are supposed to change
             this_user = User.find(user.id)

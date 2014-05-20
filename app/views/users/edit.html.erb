@@ -1,0 +1,7 @@
+<% if flash[:alert] %>
+  <% flash[:alert].each do |error| %>
+    <%= error %><br>
+  <% end %>
+<% end %>
+
+<%= render :partial => 'users/form', :locals => { :user => @user } %>

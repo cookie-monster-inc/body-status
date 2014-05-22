@@ -9,10 +9,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new params[:user]
     if @user.save
-      redirect_to new_user_path
+      redirect_to root_path
     else
       @alerts = @user.errors.full_messages
-      render "users/new"
+      redirect_to new_user_path, :alert => @user.errors.full_messages
     end
   end
 
@@ -25,12 +25,15 @@ class UsersController < ApplicationController
       if @user.update_attributes(params[:user])
         redirect_to root_path
       else
-        @alerts = @user.errors.full_messages
-        render "user/edit"
+        redirect_to edit_user_path, :alert => @user.errors.full_messages
       end
     else
-      @alerts = "The password you entered is not valid"
-      render "users/edit"
+      redirect_to edit_user_path, :alert => ["The password you entered is not valid"]
     end
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    redirect_to root_path
   end
 end
